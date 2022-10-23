@@ -45,7 +45,6 @@ public interface IScooterService
 
 public class Scooter
 {
-    
     public Scooter(string id, decimal pricePerMinute)
     {
     Id = id;
