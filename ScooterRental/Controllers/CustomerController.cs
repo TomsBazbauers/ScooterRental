@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ScooterRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("rental-customer")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        //rent scooter
+
+
     }
 }

@@ -52,7 +52,7 @@ namespace ScooterRental.Controllers
         }
 
         [Route("update-scooter/{id}")]
-        [HttpPut]
+        [HttpPost]
         public IActionResult UpdateScooter(ScooterRequest scooter)
         {
             var scooterRequested = _mapper.Map<Scooter>(scooter);
@@ -110,26 +110,5 @@ namespace ScooterRental.Controllers
             return Ok(response);
 
         }
-
-        /*[Route("reports/{year}")]
-        [HttpGet]
-        public IActionResult GetReport(IncomeStatementRequest reportRequest) 
-        {
-            var report = 
-        }*/
-
-        /*[Route("scooters/{id}")]
-        [HttpGet]
-        public IActionResult GetScooter(int id)
-        {
-            var scooter = _scooterService.GetScooterById(id);
-
-            if (scooter == null)
-            {
-                return NotFound(); // 404
-            }
-
-            return Ok();
-        }*/
     }
 }
