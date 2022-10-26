@@ -53,18 +53,17 @@ namespace ScooterRental.Controllers
 
         [Route("update-scooter/{id}")]
         [HttpPut]
-        public IActionResult UpdateScooter(ScooterRequest scooter)
+        public IActionResult UpdateScooter(ScooterRequest request)
         {
-            var scooterRequested = _mapper.Map<Scooter>(scooter);
-            var scooterToUpdate = _scooterService.GetById(scooter.Id);
+            var scooterToMatch = _mapper.Map<Scooter>(request);
+            var scooterToUpdate = _scooterService.GetById(scooterToMatch.Id);
 
             if (scooterToUpdate != null)
             {
-                scooterToUpdate.PricePerMinute = scooter.PricePerMinute;
-                scooterToUpdate.IsRented = scooter.IsRented;
-                _scooterService.Update(scooterToUpdate);
+                var scooter = _scooterService.UpdateScooter(scooterToUpdate, scooterToMatch);
+                _scooterService.Update(scooter);
 
-                var result = _mapper.Map<ScooterRequest>(scooterToUpdate);
+                var result = _mapper.Map<ScooterRequest>(scooter);
 
                 return Ok(result);
             }
@@ -78,12 +77,7 @@ namespace ScooterRental.Controllers
         {
             var scooter = _scooterService.GetScooterById(id);
 
-            if (scooter.IsRented)
-            {
-                return BadRequest();
-            }
-
-            if (scooter != null)
+            if (_scooterValidators.All(v => v.IsValid(scooter)))
             {
                 _scooterService.Delete(scooter);
                 return Ok();

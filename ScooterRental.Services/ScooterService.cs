@@ -44,24 +44,17 @@ namespace ScooterRental.Services
             _context.SaveChanges();
         }
 
-        public bool Delete(int id)
-        {
-            var isRemoved = false;
-            var scooter = GetScooterById(id);
-
-            if(scooter != null && !scooter.IsRented)
-            {
-                _context.Scooters.Remove(scooter);
-                _context.SaveChanges();
-                isRemoved = true;
-            }
-
-            return isRemoved;  
-        }
-
         public bool EndRental(int id)////
         {
             throw new NotImplementedException();
+        }
+
+        public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)
+        {
+            scooterToUpdate.PricePerMinute = scooterToMatch.PricePerMinute;
+            scooterToUpdate.IsRented = scooterToMatch.IsRented;
+
+            return scooterToUpdate;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace ScooterRental.Core.Services
 
         bool IsFound(Scooter scooter);
 
+        public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch);
+
         void Clear();
     }
 }

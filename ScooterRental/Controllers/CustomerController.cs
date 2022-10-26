@@ -9,6 +9,20 @@ namespace ScooterRental.Controllers
     {
         //rent scooter
 
+        [Route("rent-scooter/{id}")]
+        [HttpPut]
+        public IActionResult StartRental(int id)
+        {
+            return Ok();
+        }
+
+        [Route("rent-scooter/{id}")]
+        [HttpPut]
+        public IActionResult EndRental(int id)
+        {
+            
+        }
+
 
     }
 }
