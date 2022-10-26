@@ -10,6 +10,6 @@ namespace ScooterRental.Core.Services
     {
         public void StartRental(int id);
 
-        public void EndRental(int id);
+        public void EndRental(int id, DateTime rentalEnd);
     }
 }

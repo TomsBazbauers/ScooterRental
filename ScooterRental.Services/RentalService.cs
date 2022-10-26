@@ -25,7 +25,7 @@ namespace ScooterRental.Services
             _scooterService.Update(scooterToRent);
         }
 
-        public void EndRental(int id)
+        public void EndRental(int id, DateTime rentalEnd)
         {
             throw new NotImplementedException();
         }

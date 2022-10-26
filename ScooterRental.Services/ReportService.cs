@@ -51,8 +51,7 @@ namespace ScooterRental.Services
 
         public RentalReport GetSingleReport(int id, DateTime rentalEnd)
         {
-            var report = _context.RentalReports.First(report => report.Id == id && report.RentalEnd == DateTime.MinValue);
-            report.RentalEnd = rentalEnd;
+            var report = _context.RentalReports.First(report => report.Id == id && report.RentalEnd == rentalEnd);
             report.RentalIncome = _calculator.CalculateIncome(new List<RentalReport>() { report });
 
             return report;

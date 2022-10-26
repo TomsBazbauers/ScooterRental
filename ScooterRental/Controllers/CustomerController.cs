@@ -29,7 +29,7 @@ namespace ScooterRental.Controllers
 
         [Route("rent-scooter/start/{id}")]
         [HttpPut]
-        public IActionResult StartRental(int id, DateTime? rentalDate)
+        public IActionResult StartRental(int id, DateTime? rentalStart)
         {
             var request = _scooterService.GetScooterById(id);
 
@@ -39,14 +39,14 @@ namespace ScooterRental.Controllers
             }
             
             _rentalService.StartRental(request.Id);
-            _reportService.Create(new RentalReport(id, rentalDate));
+            _reportService.Create(new RentalReport(id, rentalStart));
 
             return Ok();
         }
 
         [Route("rent-scooter/end/{id}")]
         [HttpPut]
-        public IActionResult EndRental(int id) //
+        public IActionResult EndRental(int id, DateTime rentalEnd) //
         {
             var request = _scooterService.GetScooterById(id);
 
@@ -55,11 +55,10 @@ namespace ScooterRental.Controllers
                 return BadRequest();
             }
 
-            _rentalService.EndRental(request.Id);
-            _reportService.GetReport(id);
+            _rentalService.EndRental(request.Id, rentalEnd);
+            var report = _reportService.GetSingleReport(request.Id, rentalEnd);
 
-
-
+            return Ok(report);
         }
     }
 }
