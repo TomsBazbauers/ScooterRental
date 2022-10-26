@@ -9,11 +9,13 @@ namespace ScooterRental.Core.Services
 {
     public interface IReportService : IEntityService<RentalReport>
     {
-        List<RentalReport> FilterReports(bool includeRunningRentals, int year);
+        List<RentalReport> FilterReportsByYear(int? year);
 
-        RentalReport GetReport(int scooterId);
+        public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals = false);
 
-        decimal GetIncomeForPeriod(bool includeRunningRentals, int year);
+        public IncomeReport GetIncomeForPeriod(int year = 0, bool includeRunningRentals = false);
+
+        public List<RentalReport> MockRentalEnd(List<RentalReport> reports);
 
         List<RentalReport> MockRentalEnd(List<RentalReport> reports);
     }

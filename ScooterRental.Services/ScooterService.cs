@@ -22,6 +22,7 @@ namespace ScooterRental.Services
         public bool IsFound(Scooter scooter)
         {
             return _context.Scooters.Any(s => s.Id == scooter.Id);
+
         }
 
         public void Clear()

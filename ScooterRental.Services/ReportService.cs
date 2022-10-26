@@ -17,60 +17,45 @@ namespace ScooterRental.Services
             _calculator = new RentalIncomeCalculator();
         }
 
-        public RentalReport GetSingleReport(int scooterId)
+        public List<RentalReport> FilterReportsByYear(int? year)
         {
-            return _context.RentalReports
-                .First(report => report.ScooterId == scooterId
-                && report.RentalEnd == DateTime.MinValue);
+            return year != 0
+                ? _context.RentalReports.Where(report => report.RentalStart.Year == year).ToList()
+                : _context.RentalReports.ToList();
         }
 
-        public List<RentalReport> FilterReports(bool includeRunningRentals, int year = 0)
+        public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals = false)
         {
-            List<RentalReport> filteredReports = new();
-
-            if (includeRunningRentals && year == 0)
-            {
-                filteredReports = _context.RentalReports.ToList();
-            }
-            else if (includeRunningRentals && year != 0)
-            {
-                filteredReports = _context.RentalReports
-                    .Where(report => report.RentalStart.Year == year).ToList();
-            }
-            else if (!includeRunningRentals && year != 0)
-            {
-                filteredReports = _context.RentalReports
-                    .Where(report => report.RentalStart.Year == year && report.RentalEnd != DateTime.MinValue).ToList();
-            }
-            else
-            {
-                filteredReports = _context.RentalReports.Where(report => report.RentalEnd != DateTime.MinValue).ToList();
-            }
-
-            return filteredReports;
+            return includeRunningRentals
+                ? MockRentalEnd(reports)
+                : reports.Where(report => report.RentalEnd != DateTime.MinValue).ToList();
         }
 
-        public decimal GetIncomeForPeriod(bool includeRunningRentals, int year = 0)
+        public IncomeReport GetIncomeForPeriod(int year = 0, bool includeRunningRentals = false)
         {
-            List<RentalReport> reports = new();
+            var filteredReports = FilterReportsByYear(year);
+            filteredReports = FilterReportsByRentalStatus(filteredReports, includeRunningRentals);
 
-            if (includeRunningRentals)
-            {
-                reports = MockRentalEnd(FilterReports(includeRunningRentals, year));
-            }
-            else
-            {
-                reports = FilterReports(includeRunningRentals, year);
-            }
+            var incomePerPeriod = _calculator.CalculateIncome(filteredReports);
 
-            return _calculator.CalculateIncome(reports);
+            return new IncomeReport(year, incomePerPeriod);
         }
 
         public List<RentalReport> MockRentalEnd(List<RentalReport> reports)
         {
-            reports.Where(report => report.RentalEnd == DateTime.MinValue).ToList().ForEach(report => report.RentalEnd = DateTime.Now);
+            reports.Where(report => report.RentalEnd == DateTime.MinValue)
+                .ToList().ForEach(report => report.RentalEnd = DateTime.Now);
 
             return reports;
+        }
+
+        public RentalReport GetSingleReport(int id, DateTime rentalEnd)
+        {
+            var report = _context.RentalReports.First(report => report.Id == id && report.RentalEnd == DateTime.MinValue);
+            report.RentalEnd = rentalEnd;
+            report.RentalIncome = _calculator.CalculateIncome(new List<RentalReport>() { report });
+
+            return report;
         }
     }
 }

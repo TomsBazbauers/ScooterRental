@@ -46,7 +46,7 @@ namespace ScooterRental.Controllers
 
         [Route("rent-scooter/end/{id}")]
         [HttpPut]
-        public IActionResult EndRental(int id)
+        public IActionResult EndRental(int id) //
         {
             var request = _scooterService.GetScooterById(id);
 
