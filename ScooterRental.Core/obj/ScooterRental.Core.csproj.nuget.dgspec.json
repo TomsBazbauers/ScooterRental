@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\panch\\Desktop\\Scooter_Rental\\ScooterRental.Core\\ScooterRental.Core.csproj": {}
+    "C:\\Users\\panch\\Desktop\\Scooters\\ScooterRental.Core\\ScooterRental.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\panch\\Desktop\\Scooter_Rental\\ScooterRental.Core\\ScooterRental.Core.csproj": {
+    "C:\\Users\\panch\\Desktop\\Scooters\\ScooterRental.Core\\ScooterRental.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\panch\\Desktop\\Scooter_Rental\\ScooterRental.Core\\ScooterRental.Core.csproj",
+        "projectUniqueName": "C:\\Users\\panch\\Desktop\\Scooters\\ScooterRental.Core\\ScooterRental.Core.csproj",
         "projectName": "ScooterRental.Core",
-        "projectPath": "C:\\Users\\panch\\Desktop\\Scooter_Rental\\ScooterRental.Core\\ScooterRental.Core.csproj",
+        "projectPath": "C:\\Users\\panch\\Desktop\\Scooters\\ScooterRental.Core\\ScooterRental.Core.csproj",
         "packagesPath": "C:\\Users\\panch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\panch\\Desktop\\Scooter_Rental\\ScooterRental.Core\\obj\\",
+        "outputPath": "C:\\Users\\panch\\Desktop\\Scooters\\ScooterRental.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -41,8 +41,24 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.17, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

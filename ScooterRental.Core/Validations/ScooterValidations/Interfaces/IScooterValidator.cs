@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScooterRental.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ScooterRental.Core.Validations
 {
     public interface IScooterValidator
     {
-        public bool IsValid(string id, decimal pricePerMinute);
+        public bool IsValid(Scooter scooter);
     }
 }
