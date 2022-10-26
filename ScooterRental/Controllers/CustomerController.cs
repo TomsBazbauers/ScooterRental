@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ScooterRental.Core.Models;
+using ScooterRental.Core.Services;
+using ScooterRental.Core.Validations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ScooterRental.Controllers
 {
@@ -7,22 +13,53 @@ namespace ScooterRental.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        //rent scooter
+        private readonly IScooterService _scooterService;
+        private readonly IEnumerable<IScooterValidator> _scooterValidators;
+        private readonly IRentalService _rentalService;
+        private readonly IReportService _reportService;
 
-        [Route("rent-scooter/{id}")]
-        [HttpPut]
-        public IActionResult StartRental(int id)
+        public CustomerController(IScooterService scooterService,
+            IEnumerable<IScooterValidator> scooterValidators, IRentalService rentalService, IReportService reportService)
         {
+            _scooterService = scooterService;
+            _scooterValidators = scooterValidators;
+            _rentalService = rentalService;
+            _reportService = reportService;
+        }
+
+        [Route("rent-scooter/start/{id}")]
+        [HttpPut]
+        public IActionResult StartRental(int id, DateTime? rentalDate)
+        {
+            var request = _scooterService.GetScooterById(id);
+
+            if (!_scooterValidators.All(v => v.IsValid(request)))
+            {
+                return BadRequest();
+            }
+            
+            _rentalService.StartRental(request.Id);
+            _reportService.Create(new RentalReport(id, rentalDate));
+
             return Ok();
         }
 
-        [Route("rent-scooter/{id}")]
+        [Route("rent-scooter/end/{id}")]
         [HttpPut]
         public IActionResult EndRental(int id)
         {
-            
+            var request = _scooterService.GetScooterById(id);
+
+            if (request == null || !request.IsRented)
+            {
+                return BadRequest();
+            }
+
+            _rentalService.EndRental(request.Id);
+            _reportService.GetReport(id);
+
+
+
         }
-
-
     }
 }

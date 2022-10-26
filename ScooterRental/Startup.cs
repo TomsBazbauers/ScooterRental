@@ -48,12 +48,12 @@ namespace ScooterRental
             services.AddSingleton<IMapper>(AutoMapperConfig.CreateMapper());
             //
             services.AddScoped<IScooterService, ScooterService>();
-            services.AddScoped<IRentalReportService, RentalReportService>();
+            services.AddScoped<IReportService, ReportService>();
             //
             services.AddScoped<IRentalIncomeCalculator, RentalIncomeCalculator>();
             services.AddScoped<IScooterValidator, ScooterPriceValidator>();
             services.AddScoped<IScooterValidator, ScooterStatusValidator>();
-
+            services.AddScoped<IScooterValidator, ScooterPropertyValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

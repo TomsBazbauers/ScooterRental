@@ -14,12 +14,12 @@ namespace ScooterRental.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IScooterService _scooterService;
-        private readonly IRentalReportService _reportService;
+        private readonly IReportService _reportService;
         private readonly IEnumerable<IScooterValidator> _scooterValidators;
         private readonly IMapper _mapper;
 
         public AdminController(IScooterService scooterService,
-            IRentalReportService reportService, IEnumerable<IScooterValidator> scooterValidators, IMapper mapper)
+            IReportService reportService, IEnumerable<IScooterValidator> scooterValidators, IMapper mapper)
         {
             _scooterService = scooterService;
             _reportService = reportService;
@@ -62,7 +62,6 @@ namespace ScooterRental.Controllers
             {
                 var scooter = _scooterService.UpdateScooter(scooterToUpdate, scooterToMatch);
                 _scooterService.Update(scooter);
-
                 var result = _mapper.Map<ScooterRequest>(scooter);
 
                 return Ok(result);

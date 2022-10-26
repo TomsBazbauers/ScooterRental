@@ -11,10 +11,6 @@ namespace ScooterRental.Core.Services
     {
         Scooter GetScooterById(int id);
 
-        public bool StartRental(int id);
-
-        public bool EndRental(int id);
-
         bool IsFound(Scooter scooter);
 
         public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch);

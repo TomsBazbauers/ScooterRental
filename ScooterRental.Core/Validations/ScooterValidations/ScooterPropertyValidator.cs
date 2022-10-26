@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScooterRental.Core.Validations.ScooterValidations.Interfaces
+namespace ScooterRental.Core.Validations
 {
     public class ScooterPropertyValidator : IScooterValidator
     {

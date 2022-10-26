@@ -14,20 +14,6 @@ namespace ScooterRental.Services
         public ScooterService(IScooterRentalDbContext context) : base(context)
         {}
 
-        public bool StartRental(int id)
-        {
-            bool rentalStarted = false;
-            var scooterToRent = GetScooterById(id);
-
-            if(scooterToRent != null)
-            {
-                scooterToRent.IsRented = true;
-                rentalStarted = true;
-            }
-
-            return rentalStarted;
-        }
-
         public Scooter GetScooterById(int id)
         {
             return _context.Scooters.First(scooter => scooter.Id == id);
@@ -42,11 +28,6 @@ namespace ScooterRental.Services
         {
             _context.Scooters.RemoveRange(_context.Scooters);
             _context.SaveChanges();
-        }
-
-        public bool EndRental(int id)////
-        {
-            throw new NotImplementedException();
         }
 
         public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)
