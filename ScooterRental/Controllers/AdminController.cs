@@ -30,7 +30,7 @@ namespace ScooterRental.Controllers
         // add > update > delete > get reports
 
         [Route("add-scooter")]
-        [HttpPut]
+        [HttpPost]
         public IActionResult AddScooter(ScooterRequest scooter) // automapper conv
         {
             var scooterToAdd = _mapper.Map<Scooter>(scooter);//
@@ -52,7 +52,7 @@ namespace ScooterRental.Controllers
         }
 
         [Route("update-scooter/{id}")]
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateScooter(ScooterRequest scooter)
         {
             var scooterRequested = _mapper.Map<Scooter>(scooter);
@@ -92,7 +92,7 @@ namespace ScooterRental.Controllers
             return Problem();
         }
 
-        [Route("scooter/{id}")]//
+        [Route("scooter/{id}")]//// remove when done
         [HttpGet]
         public IActionResult GetScooter(int id)
         {
