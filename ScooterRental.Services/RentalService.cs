@@ -20,14 +20,17 @@ namespace ScooterRental.Services
         public void StartRental(int id)
         {
             var scooterToRent = _scooterService.GetScooterById(id);
-            
             scooterToRent.IsRented = true;
+            
             _scooterService.Update(scooterToRent);
         }
 
         public void EndRental(int id, DateTime rentalEnd)
         {
-            throw new NotImplementedException();
+            var scooterToRent = _scooterService.GetScooterById(id);
+            scooterToRent.IsRented = false;
+            
+            _scooterService.Update(scooterToRent);
         }
     }
 }

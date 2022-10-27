@@ -8,14 +8,17 @@ namespace ScooterRental.Core.Models
 {
     public class RentalReport : Entity
     {
-        public RentalReport(int id, DateTime? rentalStart)
+        public RentalReport(int id, decimal rate, DateTime? rentalStart)
         {
             ScooterId = id;
+            PricePerMinute = rate;
             RentalStart = rentalStart ?? DateTime.Now;
             RentalEnd = DateTime.MinValue;
         }
 
         public int ScooterId { get; set; }
+
+        public decimal PricePerMinute { get; set; }
 
         public DateTime RentalStart { get; set; }
 

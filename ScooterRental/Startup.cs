@@ -43,7 +43,7 @@ namespace ScooterRental
             //
             services.AddScoped<IEntityService<Scooter>, EntityService<Scooter>>();
             services.AddScoped<IEntityService<RentalReport>, EntityService<RentalReport>>();
-            services.AddScoped<IEntityService<IncomeReport>, EntityService<IncomeReport>>();
+            //services.AddScoped<IEntityService<IncomeReport>, EntityService<IncomeReport>>();
             //
             services.AddSingleton<IMapper>(AutoMapperConfig.CreateMapper());
             //

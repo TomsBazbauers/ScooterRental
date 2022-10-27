@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScooterRental.Core.Models
 {
-    public class IncomeReport : Entity
+    public class IncomeReport
     {
         public IncomeReport(int periodYear, decimal rentalIncome)
         {

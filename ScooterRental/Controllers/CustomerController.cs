@@ -29,7 +29,7 @@ namespace ScooterRental.Controllers
 
         [Route("rent-scooter/start/{id}")]
         [HttpPut]
-        public IActionResult StartRental(int id, DateTime? rentalStart)
+        public IActionResult StartRental(int id, DateTime rentalStart)
         {
             var request = _scooterService.GetScooterById(id);
 
@@ -39,7 +39,7 @@ namespace ScooterRental.Controllers
             }
             
             _rentalService.StartRental(request.Id);
-            _reportService.Create(new RentalReport(id, rentalStart));
+            _reportService.Create(new RentalReport(request.Id, request.PricePerMinute, rentalStart));
 
             return Ok();
         }

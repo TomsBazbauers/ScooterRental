@@ -8,8 +8,8 @@ namespace ScooterRental.Core.Services
 {
     public interface IRentalService
     {
-        public void StartRental(int id);
+        void StartRental(int id);
 
-        public void EndRental(int id, DateTime rentalEnd);
+        void EndRental(int id, DateTime rentalEnd);
     }
 }

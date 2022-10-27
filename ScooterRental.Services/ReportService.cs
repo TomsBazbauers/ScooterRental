@@ -43,8 +43,8 @@ namespace ScooterRental.Services
 
         public List<RentalReport> MockRentalEnd(List<RentalReport> reports)
         {
-            reports.Where(report => report.RentalEnd == DateTime.MinValue)
-                .ToList().ForEach(report => report.RentalEnd = DateTime.Now);
+            reports.Where(report => report.RentalEnd == DateTime.MinValue).ToList()
+                .ForEach(report => report.RentalEnd = DateTime.Now);
 
             return reports;
         }
