@@ -1,7 +1,7 @@
 # ScooterRental
 
 ### Description:
-An API application for renting vehicles, reporting ride-time and calculating profit.
+TODO
 
 ---
 
