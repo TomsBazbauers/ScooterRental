@@ -41,16 +41,6 @@ namespace ScooterRental.Services
             return new IncomeReport(year, incomePerPeriod, filteredReports.Count);
         }
 
-        /*public List<RentalReport> MockRentalEnd(List<RentalReport> reports)
-        {
-            var copy = new List<RentalReport>(reports);
-            reports.ForEach(x => copy.Add(x));
-            reports.Where(report => report.RentalEnd == DateTime.MinValue).ToList()
-                .ForEach(report => report.RentalEnd = DateTime.Now);
-
-            return reports;
-        }*/
-
         public RentalReport GetSingleReport(int id)
         {
             var report = _context.RentalReports.First(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);

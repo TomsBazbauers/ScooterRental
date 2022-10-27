@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScooterRental.Core.Models
+﻿namespace ScooterRental.Core.Models
 {
     public class IncomeReport
     {
@@ -15,12 +9,12 @@ namespace ScooterRental.Core.Models
             Rentals = rentals;
         }
 
-        public IncomeReport() 
+        public IncomeReport()
         { }
 
         public int Rentals { get; set; }
 
-        public int PeriodYear { get; set; } 
+        public int PeriodYear { get; set; }
 
         public decimal RentalIncome { get; set; }
     }

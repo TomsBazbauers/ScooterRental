@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ScooterRental.Automapper;
 using ScooterRental.Core.Calculators;
 using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
@@ -40,24 +41,22 @@ namespace ScooterRental
 
             services.AddScoped<IScooterRentalDbContext, ScooterRentalDbContext>();
             services.AddScoped<IDbService, DbService>();
-            //
+
             services.AddScoped<IEntityService<Scooter>, EntityService<Scooter>>();
             services.AddScoped<IEntityService<RentalReport>, EntityService<RentalReport>>();
-            //services.AddScoped<IEntityService<IncomeReport>, EntityService<IncomeReport>>();
-            //
+
             services.AddSingleton<IMapper>(AutoMapperConfig.CreateMapper());
-            //
+
             services.AddScoped<IScooterService, ScooterService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IRentalService, RentalService>();
-            //
+
             services.AddScoped<IRentalIncomeCalculator, RentalIncomeCalculator>();
             services.AddScoped<IScooterValidator, ScooterPriceValidator>();
             services.AddScoped<IScooterValidator, ScooterStatusValidator>();
             services.AddScoped<IScooterValidator, ScooterPropertyValidator>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

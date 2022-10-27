@@ -27,24 +27,17 @@ namespace ScooterRental.Controllers
             _mapper = mapper;
         }
 
-        // add > update > delete > get reports
-
         [Route("add-scooter")]
         [HttpPost]
-        public IActionResult AddScooter(ScooterRequest scooter) // automapper conv
+        public IActionResult AddScooter(ScooterRequest scooter)
         {
-            var scooterToAdd = _mapper.Map<Scooter>(scooter);//
+            var scooterToAdd = _mapper.Map<Scooter>(scooter);
 
             if (!_scooterValidators.All(v => v.IsValid(scooterToAdd)))
             {
-                return BadRequest(); // 400
+                return BadRequest();
             }
 
-            /*if (_scooterService.IsFound(scooterToAdd)) // ja mappo tad nevajag
-            {
-                return Conflict(); // 409
-            }*/
-            //scooterToAdd.IsRented = false;
             _scooterService.Create(scooterToAdd);
             var result = _mapper.Map<ScooterRequest>(scooterToAdd);
 
@@ -70,6 +63,22 @@ namespace ScooterRental.Controllers
             return Problem();
         }
 
+        [Route("scooter/{id}")]
+        [HttpGet]
+        public IActionResult GetScooter(int id)
+        {
+            var request = _scooterService.GetScooterById(id);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            var response = _mapper.Map<ScooterRequest>(request);
+
+            return Ok(response);
+        }
+
         [Route("delete-scooter/{id}")]
         [HttpDelete]
         public IActionResult DeleteScooter(int id)
@@ -78,59 +87,22 @@ namespace ScooterRental.Controllers
 
             if (_scooterValidators.All(v => v.IsValid(scooter)))
             {
+                var result = _mapper.Map<ScooterRequest>(scooter);
                 _scooterService.Delete(scooter);
-                return Ok(scooter);
+
+                return Ok(result);
             }
 
             return BadRequest();
         }
 
-        [Route("report")]//// remove when done
+        [Route("report")]
         [HttpGet]
         public IActionResult GetIncomeReport(int year, bool includeRunningRentals)
         {
             var report = _reportService.GetIncomeForPeriod(year, includeRunningRentals);
 
             return Ok(report);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        [Route("scooter/{id}")]//// remove when done
-        [HttpGet]
-        public IActionResult GetScooter(int id)
-        {
-
-
-            var s = _scooterService.GetScooterById(id);
-
-            if (s == null)
-            {
-                return NotFound();
-            }
-
-            var response = _mapper.Map<ScooterRequest>(s);
-
-            return Ok(response);
-
         }
     }
 }

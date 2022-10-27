@@ -1,10 +1,5 @@
 ﻿using ScooterRental.Core.Services;
-using ScooterRental.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScooterRental.Services
 {
@@ -21,7 +16,7 @@ namespace ScooterRental.Services
         {
             var scooterToRent = _scooterService.GetScooterById(id);
             scooterToRent.IsRented = true;
-            
+
             _scooterService.Update(scooterToRent);
         }
 
@@ -29,7 +24,7 @@ namespace ScooterRental.Services
         {
             var scooterToRent = _scooterService.GetScooterById(id);
             scooterToRent.IsRented = false;
-            
+
             _scooterService.Update(scooterToRent);
         }
     }

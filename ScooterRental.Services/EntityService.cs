@@ -1,12 +1,8 @@
 ﻿using ScooterRental.Core.Models;
-using ScooterRental.Core;
 using ScooterRental.Core.Services;
 using ScooterRental.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScooterRental.Services
 {

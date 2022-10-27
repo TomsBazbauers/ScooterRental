@@ -17,7 +17,8 @@ namespace ScooterRental.Core.Calculators
 
         public decimal CalculateIncome(List<RentalReport> reports)
         {
-            decimal total = reports.Select(report => CalculatePerReport(report).RentalIncome).ToList().Sum();
+            decimal total = reports
+                .Select(report => CalculatePerReport(report).RentalIncome).ToList().Sum();
 
             return total;
         }
