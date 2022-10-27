@@ -2,7 +2,7 @@
 using ScooterRental.Core.Models;
 using ScooterRental.Models;
 
-namespace ScooterRental
+namespace ScooterRental.Automapper
 {
     public class AutoMapperConfig
     {
