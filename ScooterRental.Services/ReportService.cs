@@ -17,17 +17,17 @@ namespace ScooterRental.Services
             _calculator = new RentalIncomeCalculator();
         }
 
-        public List<RentalReport> FilterReportsByYear(int? year)
+        public List<RentalReport> FilterReportsByYear(int year)
         {
             return year != 0
                 ? _context.RentalReports.Where(report => report.RentalStart.Year == year).ToList()
                 : _context.RentalReports.ToList();
         }
 
-        public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals = false)
+        public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals)
         {
             return includeRunningRentals
-                ? MockRentalEnd(reports)
+                ? reports
                 : reports.Where(report => report.RentalEnd != DateTime.MinValue).ToList();
         }
 
@@ -38,22 +38,26 @@ namespace ScooterRental.Services
 
             var incomePerPeriod = _calculator.CalculateIncome(filteredReports);
 
-            return new IncomeReport(year, incomePerPeriod);
+            return new IncomeReport(year, incomePerPeriod, filteredReports.Count);
         }
 
-        public List<RentalReport> MockRentalEnd(List<RentalReport> reports)
+        /*public List<RentalReport> MockRentalEnd(List<RentalReport> reports)
         {
+            var copy = new List<RentalReport>(reports);
+            reports.ForEach(x => copy.Add(x));
             reports.Where(report => report.RentalEnd == DateTime.MinValue).ToList()
                 .ForEach(report => report.RentalEnd = DateTime.Now);
 
             return reports;
-        }
+        }*/
 
         public RentalReport GetSingleReport(int id)
         {
             var report = _context.RentalReports.First(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
             report.RentalEnd = DateTime.Now;
+
             _calculator.CalculatePerReport(report);
+            _context.RentalReports.Update(report);
 
             return report;
         }

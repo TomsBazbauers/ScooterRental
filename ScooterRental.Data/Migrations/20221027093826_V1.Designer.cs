@@ -10,8 +10,8 @@ using ScooterRental.Data;
 namespace ScooterRental.Data.Migrations
 {
     [DbContext(typeof(ScooterRentalDbContext))]
-    [Migration("20221027073627_v2")]
-    partial class v2
+    [Migration("20221027093826_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

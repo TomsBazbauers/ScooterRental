@@ -44,7 +44,7 @@ namespace ScooterRental.Controllers
             {
                 return Conflict(); // 409
             }*/
-
+            //scooterToAdd.IsRented = false;
             _scooterService.Create(scooterToAdd);
             var result = _mapper.Map<ScooterRequest>(scooterToAdd);
 
@@ -84,6 +84,35 @@ namespace ScooterRental.Controllers
 
             return BadRequest();
         }
+
+        [Route("report")]//// remove when done
+        [HttpGet]
+        public IActionResult GetIncomeReport(int year, bool includeRunningRentals)
+        {
+            var report = _reportService.GetIncomeForPeriod(year, includeRunningRentals);
+
+            return Ok(report);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         [Route("scooter/{id}")]//// remove when done
         [HttpGet]
