@@ -17,6 +17,6 @@ namespace ScooterRental.Core.Services
 
         public List<RentalReport> MockRentalEnd(List<RentalReport> reports);
 
-        public RentalReport GetSingleReport(int id, DateTime rentalEnd);
+        public RentalReport GetSingleReport(int id);
     }
 }

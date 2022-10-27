@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ScooterRental.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class v2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,6 +14,7 @@ namespace ScooterRental.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ScooterId = table.Column<int>(type: "int", nullable: false),
+                    PricePerMinute = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RentalStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RentalEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RentalIncome = table.Column<decimal>(type: "decimal(18,2)", nullable: false)

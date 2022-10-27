@@ -26,6 +26,9 @@ namespace ScooterRental.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("PricePerMinute")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("RentalEnd")
                         .HasColumnType("datetime2");
 

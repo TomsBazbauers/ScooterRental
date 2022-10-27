@@ -40,10 +40,10 @@ namespace ScooterRental.Controllers
                 return BadRequest(); // 400
             }
 
-            if (_scooterService.IsFound(scooterToAdd)) // ja mappo tad nevajag
+            /*if (_scooterService.IsFound(scooterToAdd)) // ja mappo tad nevajag
             {
                 return Conflict(); // 409
-            }
+            }*/
 
             _scooterService.Create(scooterToAdd);
             var result = _mapper.Map<ScooterRequest>(scooterToAdd);
@@ -56,7 +56,7 @@ namespace ScooterRental.Controllers
         public IActionResult UpdateScooter(ScooterRequest request)
         {
             var scooterToMatch = _mapper.Map<Scooter>(request);
-            var scooterToUpdate = _scooterService.GetById(scooterToMatch.Id);
+            var scooterToUpdate = _scooterService.GetScooterById(request.Id);
 
             if (scooterToUpdate != null)
             {
@@ -79,10 +79,10 @@ namespace ScooterRental.Controllers
             if (_scooterValidators.All(v => v.IsValid(scooter)))
             {
                 _scooterService.Delete(scooter);
-                return Ok();
+                return Ok(scooter);
             }
 
-            return Problem();
+            return BadRequest();
         }
 
         [Route("scooter/{id}")]//// remove when done

@@ -10,8 +10,8 @@ using ScooterRental.Data;
 namespace ScooterRental.Data.Migrations
 {
     [DbContext(typeof(ScooterRentalDbContext))]
-    [Migration("20221026092436_init")]
-    partial class init
+    [Migration("20221027073627_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace ScooterRental.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("PricePerMinute")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("RentalEnd")
                         .HasColumnType("datetime2");

@@ -49,10 +49,11 @@ namespace ScooterRental.Services
             return reports;
         }
 
-        public RentalReport GetSingleReport(int id, DateTime rentalEnd)
+        public RentalReport GetSingleReport(int id)
         {
-            var report = _context.RentalReports.First(report => report.Id == id && report.RentalEnd == rentalEnd);
-            report.RentalIncome = _calculator.CalculateIncome(new List<RentalReport>() { report });
+            var report = _context.RentalReports.First(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
+            report.RentalEnd = DateTime.Now;
+            _calculator.CalculatePerReport(report);
 
             return report;
         }

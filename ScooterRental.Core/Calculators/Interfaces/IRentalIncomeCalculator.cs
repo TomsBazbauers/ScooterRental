@@ -12,5 +12,7 @@ namespace ScooterRental.Core.Calculators
         public decimal MaxDailyCharge { get; set; }
 
         decimal CalculateIncome(List<RentalReport> reports);
+
+        RentalReport CalculatePerReport(RentalReport report);
     }
 }
