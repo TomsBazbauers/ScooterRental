@@ -11,19 +11,19 @@ namespace ScooterRental.Services
         public EntityService(IScooterRentalDbContext context) : base(context)
         { }
 
-        public void Create(T entity)
+        public ServiceResult Create(T entity)
         {
-            Create<T>(entity);
+            return Create<T>(entity);
         }
 
-        public void Delete(T entity)
+        public ServiceResult Delete(T entity)
         {
-            Delete<T>(entity);
+            return Delete<T>(entity);
         }
 
-        public void Update(T entity)
+        public ServiceResult Update(T entity)
         {
-            Update<T>(entity);
+            return Update<T>(entity);
         }
 
         public List<T> GetAll()

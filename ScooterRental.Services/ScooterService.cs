@@ -7,6 +7,7 @@ namespace ScooterRental.Services
 {
     public class ScooterService : EntityService<Scooter>, IScooterService
     {
+
         public ScooterService(IScooterRentalDbContext context) : base(context)
         { }
 

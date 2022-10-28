@@ -16,22 +16,28 @@ namespace ScooterRental.Services
             _context = context;
         }
 
-        public void Create<T>(T entity) where T : Entity
+        public ServiceResult Create<T>(T entity) where T : Entity
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
+
+            return new ServiceResult(true).SetEntity(entity);
         }
 
-        public void Delete<T>(T entity) where T : Entity
+        public ServiceResult Delete<T>(T entity) where T : Entity
         {
             _context.Set<T>().Remove(entity);
             _context.SaveChanges();
+
+            return new ServiceResult(true);
         }
 
-        public void Update<T>(T entity) where T : Entity
+        public ServiceResult Update<T>(T entity) where T : Entity
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+
+            return new ServiceResult(true);
         }
 
         public List<T> GetAll<T>() where T : Entity

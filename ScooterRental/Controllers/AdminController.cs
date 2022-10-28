@@ -29,19 +29,24 @@ namespace ScooterRental.Controllers
 
         [Route("add-scooter")]
         [HttpPost]
-        public IActionResult AddScooter(ScooterRequest scooter)
+        public IActionResult AddScooter(ScooterRequest request)
         {
-            var scooterToAdd = _mapper.Map<Scooter>(scooter);
+            var scooter = _mapper.Map<Scooter>(request);
 
-            if (!_scooterValidators.All(v => v.IsValid(scooterToAdd)))
+            if (!_scooterValidators.All(v => v.IsValid(scooter)))
             {
                 return BadRequest();
             }
 
-            _scooterService.Create(scooterToAdd);
-            var result = _mapper.Map<ScooterRequest>(scooterToAdd);
+            var result = _scooterService.Create(scooter);
 
-            return Created("", result);
+            if (result.Success)
+            {
+                request = _mapper.Map<ScooterRequest>(scooter);
+                return Created("", request);
+            }
+
+            return Problem(result.FormattedErrors); 
         }
 
         [Route("update-scooter/{id}")]
@@ -54,13 +59,18 @@ namespace ScooterRental.Controllers
             if (scooterToUpdate != null)
             {
                 var scooter = _scooterService.UpdateScooter(scooterToUpdate, scooterToMatch);
-                _scooterService.Update(scooter);
-                var result = _mapper.Map<ScooterRequest>(scooter);
+                var result = _scooterService.Update(scooter);
 
-                return Ok(result);
+                if (result.Success)
+                {
+                    var response = _mapper.Map<ScooterRequest>(scooter);
+                    return Ok(response);
+                }
+
+                return Problem(result.FormattedErrors);
             }
 
-            return Problem();
+            return Ok();
         }
 
         [Route("scooter/{id}")]
@@ -85,15 +95,18 @@ namespace ScooterRental.Controllers
         {
             var scooter = _scooterService.GetScooterById(id);
 
-            if (_scooterValidators.All(v => v.IsValid(scooter)))
+            if (scooter != null)
             {
-                var result = _mapper.Map<ScooterRequest>(scooter);
-                _scooterService.Delete(scooter);
+                var result = _scooterService.Delete(scooter);
+                if (result.Success)
+                {
+                    return Ok();
+                }
 
-                return Ok(result);
+                return Problem(result.FormattedErrors);
             }
 
-            return BadRequest();
+            return Ok();
         }
 
         [Route("report")]

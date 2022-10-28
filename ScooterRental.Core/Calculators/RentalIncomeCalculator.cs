@@ -33,7 +33,7 @@ namespace ScooterRental.Core.Calculators
             decimal incomePerMinutes = rentalPeriod.Minutes * report.PricePerMinute;
 
             decimal total = Math.Round(incomePerDay + incomePerMinutes, 2);
-            report.RentalIncome = total; // TODO: do not set, just mock it 
+            report.RentalIncome = total; // remove this setting, just mock it
 
             return report;
         }

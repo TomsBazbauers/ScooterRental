@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -24,6 +25,16 @@
     <ProjectReference Include="..\ScooterRental.Data\ScooterRental.Data.csproj" />
     <ProjectReference Include="..\ScooterRental.Services\ScooterRental.Services.csproj" />
     <ProjectReference Include="..\ScooterRental\ScooterRental.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DbServiceTests\" />
+    <Folder Include="AutomapperTests\" />
+    <Folder Include="AdminControllerTests\" />
+    <Folder Include="CustomerControllerTests\" />
+    <Folder Include="ReportServiceTests\" />
+    <Folder Include="RentalServiceTests\" />
+    <Folder Include="ScooterServiceTests\" />
   </ItemGroup>
 
 </Project>
