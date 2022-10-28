@@ -81,7 +81,7 @@ namespace ScooterRental.Controllers
 
             if (request == null)
             {
-                return NotFound();
+                return NotFound(id);
             }
 
             var response = _mapper.Map<ScooterRequest>(request);
@@ -94,19 +94,18 @@ namespace ScooterRental.Controllers
         public IActionResult DeleteScooter(int id)
         {
             var scooter = _scooterService.GetScooterById(id);
-
-            if (scooter != null)
+            if (scooter == null)
             {
-                var result = _scooterService.Delete(scooter);
-                if (result.Success)
-                {
-                    return Ok();
-                }
-
-                return Problem(result.FormattedErrors);
+                return BadRequest();
             }
 
-            return BadRequest();
+            var result = _scooterService.Delete(scooter);
+            if (result.Success)
+            {
+                return Ok();
+            }
+
+            return Problem(result.FormattedErrors);
         }
 
         [Route("report")]
