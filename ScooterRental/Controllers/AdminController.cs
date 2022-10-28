@@ -53,24 +53,24 @@ namespace ScooterRental.Controllers
         [HttpPut]
         public IActionResult UpdateScooter(ScooterRequest request)
         {
-            var scooterToMatch = _mapper.Map<Scooter>(request);
-            var scooterToUpdate = _scooterService.GetScooterById(request.Id);
+            var requested = _mapper.Map<Scooter>(request);
+            var toUpdate = _scooterService.GetScooterById(request.Id);
 
-            if (_scooterValidators.All(v => v.IsValid(scooterToUpdate)))
+            if (toUpdate == null)
             {
-                var scooter = _scooterService.UpdateScooter(scooterToUpdate, scooterToMatch);
-                var result = _scooterService.Update(scooter);
-
-                if (result.Success)
-                {
-                    var response = _mapper.Map<ScooterRequest>(scooter);
-                    return Ok(response);
-                }
-
-                return Problem(result.FormattedErrors);
+                return BadRequest(request);
             }
 
-            return BadRequest();
+            var scooter = _scooterService.UpdateScooter(toUpdate, requested);
+            var result = _scooterService.Update(scooter);
+
+            if (result.Success)
+            {
+                var response = _mapper.Map<ScooterRequest>(scooter);
+                return Ok(response);
+            }
+
+            return Problem(result.FormattedErrors);
         }
 
         [Route("scooter/{id}")]
