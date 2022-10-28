@@ -4,6 +4,7 @@ using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
 using ScooterRental.Core.Validations;
 using ScooterRental.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -112,6 +113,11 @@ namespace ScooterRental.Controllers
         [HttpGet]
         public IActionResult GetIncomeReport(int year, bool includeRunningRentals)
         {
+            if(year > DateTime.Now.AddYears(1).Year)
+            {
+                return BadRequest(year);
+            }
+
             var report = _reportService.GetIncomeForPeriod(year, includeRunningRentals);
 
             return Ok(report);
