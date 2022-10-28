@@ -18,12 +18,12 @@ namespace ScooterRental.Core.Calculators
         public decimal CalculateIncome(List<RentalReport> reports)
         {
             decimal total = reports
-                .Select(report => CalculatePerReport(report).RentalIncome).ToList().Sum();
+                .Select(report => CalculatePerReport(report)).ToList().Sum();
 
             return total;
         }
 
-        public RentalReport CalculatePerReport(RentalReport report)
+        public decimal CalculatePerReport(RentalReport report)
         {
             TimeSpan rentalPeriod = report.RentalEnd == DateTime.MinValue
                 ? DateTime.Now.Subtract(report.RentalStart)
@@ -33,9 +33,8 @@ namespace ScooterRental.Core.Calculators
             decimal incomePerMinutes = rentalPeriod.Minutes * report.PricePerMinute;
 
             decimal total = Math.Round(incomePerDay + incomePerMinutes, 2);
-            report.RentalIncome = total; // remove this setting, just mock it
 
-            return report;
+            return total;
         }
     }
 }

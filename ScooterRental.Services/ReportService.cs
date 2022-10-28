@@ -46,7 +46,8 @@ namespace ScooterRental.Services
             var report = _context.RentalReports.First(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
             report.RentalEnd = DateTime.Now;
 
-            _calculator.CalculatePerReport(report);
+            var income = _calculator.CalculatePerReport(report);
+            report.RentalIncome = income;
             _context.RentalReports.Update(report);
 
             return report;

@@ -9,6 +9,6 @@ namespace ScooterRental.Core.Calculators
 
         decimal CalculateIncome(List<RentalReport> reports);
 
-        RentalReport CalculatePerReport(RentalReport report);
+        decimal CalculatePerReport(RentalReport report);
     }
 }
