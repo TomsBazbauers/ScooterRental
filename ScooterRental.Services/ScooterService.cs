@@ -13,7 +13,18 @@ namespace ScooterRental.Services
 
         public Scooter GetScooterById(int id)
         {
-            return _context.Scooters.First(scooter => scooter.Id == id);
+            Scooter scooter = null;
+
+            try
+            {
+                scooter = _context.Scooters.First(scooter => scooter.Id == id);
+            }
+            catch
+            {
+                scooter = null;
+            }
+
+            return scooter;
         }
 
         public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)

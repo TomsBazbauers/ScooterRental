@@ -46,7 +46,7 @@ namespace ScooterRental.Controllers
                 return Created("", request);
             }
 
-            return Problem(result.FormattedErrors); 
+            return Problem(result.FormattedErrors);
         }
 
         [Route("update-scooter/{id}")]
@@ -56,7 +56,7 @@ namespace ScooterRental.Controllers
             var scooterToMatch = _mapper.Map<Scooter>(request);
             var scooterToUpdate = _scooterService.GetScooterById(request.Id);
 
-            if (scooterToUpdate != null)
+            if (_scooterValidators.All(v => v.IsValid(scooterToUpdate)))
             {
                 var scooter = _scooterService.UpdateScooter(scooterToUpdate, scooterToMatch);
                 var result = _scooterService.Update(scooter);
@@ -70,7 +70,7 @@ namespace ScooterRental.Controllers
                 return Problem(result.FormattedErrors);
             }
 
-            return Ok();
+            return BadRequest();
         }
 
         [Route("scooter/{id}")]
@@ -106,7 +106,7 @@ namespace ScooterRental.Controllers
                 return Problem(result.FormattedErrors);
             }
 
-            return Ok();
+            return BadRequest();
         }
 
         [Route("report")]
