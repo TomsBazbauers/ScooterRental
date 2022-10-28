@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
 using ScooterRental.Core.Validations;
@@ -33,11 +32,11 @@ namespace ScooterRental.Controllers
         {
             var request = _scooterService.GetScooterById(id);
 
-            if (!_scooterValidators.All(v => v.IsValid(request)))
+            if (request == null)
             {
                 return BadRequest();
             }
-            
+
             _rentalService.StartRental(request.Id);
             _reportService.Create(new RentalReport(request.Id, request.PricePerMinute, DateTime.Now));
 
@@ -58,7 +57,7 @@ namespace ScooterRental.Controllers
             var report = _reportService.GetSingleReport(request.Id);
             _rentalService.EndRental(request.Id, report.RentalEnd);
 
-            return Ok(report); // pageresult
+            return Ok(report);
         }
     }
 }
