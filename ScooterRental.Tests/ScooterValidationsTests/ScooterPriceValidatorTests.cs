@@ -22,13 +22,13 @@ namespace ScooterRental.Tests.ScooterValidationsTests
             {
                 new Scooter(-2.5m, false),
                 new Scooter(-2, false),
-                new Scooter(-1m, false),
+                new Scooter(-1m, true),
                 new Scooter(-0.1m, false),
                 new Scooter(0, false),
-                new Scooter(0.1m, false),
+                new Scooter(0.1m, true),
                 new Scooter(1, false),
                 new Scooter(2, false),
-                new Scooter(2.5m, false),
+                new Scooter(2.5m, true),
                 new Scooter(100, false)
             };
         }
