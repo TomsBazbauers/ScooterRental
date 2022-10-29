@@ -6,6 +6,10 @@ namespace ScooterRental.Core.Services
     {
         Scooter GetScooterById(int id);
 
-        public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch);
+        ServiceResult UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch);
+
+        ServiceResult CreateScooter(Scooter scooter);
+
+        ServiceResult DeleteScooter(Scooter scooter);
     }
 }

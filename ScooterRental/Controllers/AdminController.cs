@@ -39,7 +39,7 @@ namespace ScooterRental.Controllers
                 return BadRequest();
             }
 
-            var result = _scooterService.Create(scooter);
+            var result = _scooterService.CreateScooter(scooter);
 
             if (result.Success)
             {
@@ -62,13 +62,11 @@ namespace ScooterRental.Controllers
                 return BadRequest(request);
             }
 
-            var scooter = _scooterService.UpdateScooter(toUpdate, requested);
-            var result = _scooterService.Update(scooter);
+            var result = _scooterService.UpdateScooter(toUpdate, requested);
 
             if (result.Success)
             {
-                var response = _mapper.Map<ScooterRequest>(scooter);
-                return Ok(response);
+                return Ok(toUpdate);
             }
 
             return Problem(result.FormattedErrors);
@@ -100,7 +98,7 @@ namespace ScooterRental.Controllers
                 return BadRequest();
             }
 
-            var result = _scooterService.Delete(scooter);
+            var result = _scooterService.DeleteScooter(scooter);
             if (result.Success)
             {
                 return Ok();
@@ -113,7 +111,7 @@ namespace ScooterRental.Controllers
         [HttpGet]
         public IActionResult GetIncomeReport(int year, bool includeRunningRentals)
         {
-            if(year > DateTime.Now.AddYears(1).Year)
+            if(year > DateTime.Now.Year)
             {
                 return BadRequest(year);
             }

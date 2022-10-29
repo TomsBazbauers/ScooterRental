@@ -23,18 +23,16 @@ namespace ScooterRental.Core.Calculators
             return total;
         }
 
-        public decimal CalculatePerReport(RentalReport report)
+        public decimal CalculatePerReport(RentalReport report)// extract date mocking to reportService?
         {
             TimeSpan rentalPeriod = report.RentalEnd == DateTime.MinValue
                 ? DateTime.Now.Subtract(report.RentalStart)
                 : report.RentalEnd.Subtract(report.RentalStart);
 
-            decimal incomePerDay = rentalPeriod.Days * _maxDailyCharge;
-            decimal incomePerMinutes = rentalPeriod.Minutes * report.PricePerMinute;
+            decimal totalIncome = 
+                (rentalPeriod.Days * _maxDailyCharge) + (rentalPeriod.Minutes * report.PricePerMinute);
 
-            decimal total = Math.Round(incomePerDay + incomePerMinutes, 2);
-
-            return total;
+            return Math.Round(totalIncome, 2);
         }
     }
 }

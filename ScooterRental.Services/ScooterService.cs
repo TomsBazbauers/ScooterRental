@@ -1,23 +1,21 @@
 ﻿using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
 using ScooterRental.Data;
-using System.Linq;
 
 namespace ScooterRental.Services
 {
     public class ScooterService : EntityService<Scooter>, IScooterService
     {
-
         public ScooterService(IScooterRentalDbContext context) : base(context)
         { }
 
         public Scooter GetScooterById(int id)
         {
-            Scooter scooter = null;
+            Scooter scooter;
 
             try
             {
-                scooter = _context.Scooters.First(scooter => scooter.Id == id);
+                scooter = GetById(id);
             }
             catch
             {
@@ -27,12 +25,22 @@ namespace ScooterRental.Services
             return scooter;
         }
 
-        public Scooter UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)
+        public ServiceResult CreateScooter(Scooter scooter)
+        {
+            return Create(scooter);
+        }
+
+        public ServiceResult DeleteScooter(Scooter scooter)
+        {
+            return Delete(scooter);
+        }
+
+        public ServiceResult UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)
         {
             scooterToUpdate.PricePerMinute = scooterToMatch.PricePerMinute;
             scooterToUpdate.IsRented = scooterToMatch.IsRented;
 
-            return scooterToUpdate;
+            return Update(scooterToUpdate);
         }
     }
 }
