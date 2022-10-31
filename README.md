@@ -1,7 +1,7 @@
 # ScooterRental
 
 ### Description:
-TODO
+A simple API application for registering, renting scooters and calculating, getting rental income reports.
 
 ---
 
@@ -11,6 +11,7 @@ TODO
 - You can rent scooters for any time period
 - You must calculate rental price when rental ends
 - You must calculate rental company income from all rentals and provide yearly report if requested
+- Max charge per day is set at 20 euros
 
 ---
 
