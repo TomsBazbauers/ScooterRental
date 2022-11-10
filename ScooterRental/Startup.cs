@@ -49,7 +49,6 @@ namespace ScooterRental
 
             services.AddScoped<IScooterService, ScooterService>();
             services.AddScoped<IReportService, ReportService>();
-            services.AddScoped<IRentalService, RentalService>();
 
             services.AddScoped<IRentalIncomeCalculator, RentalIncomeCalculator>();
             services.AddScoped<IScooterValidator, ScooterPriceValidator>();

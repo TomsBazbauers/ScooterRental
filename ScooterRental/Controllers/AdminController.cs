@@ -50,28 +50,6 @@ namespace ScooterRental.Controllers
             return Problem(result.FormattedErrors);
         }
 
-        [Route("update-scooter/{id}")]
-        [HttpPut]
-        public IActionResult UpdateScooter(ScooterRequest request)
-        {
-            var requested = _mapper.Map<Scooter>(request);
-            var toUpdate = _scooterService.GetScooterById(request.Id);
-
-            if (toUpdate == null)
-            {
-                return BadRequest(request);
-            }
-
-            var result = _scooterService.UpdateScooter(toUpdate, requested);
-
-            if (result.Success)
-            {
-                return Ok(toUpdate);
-            }
-
-            return Problem(result.FormattedErrors);
-        }
-
         [Route("scooter/{id}")]
         [HttpGet]
         public IActionResult GetScooter(long id)
@@ -95,13 +73,13 @@ namespace ScooterRental.Controllers
             var scooter = _scooterService.GetScooterById(id);
             if (scooter == null)
             {
-                return BadRequest();
+                return BadRequest(id);
             }
 
             var result = _scooterService.DeleteScooter(scooter);
             if (result.Success)
             {
-                return Ok();
+                return Ok($"Scooter: {id} has been deleted");
             }
 
             return Problem(result.FormattedErrors);

@@ -22,3 +22,4 @@ Release/
 *.lock
 *.vs
 *.idea
+/ScooterRental.Tests/CustomerControllerTests

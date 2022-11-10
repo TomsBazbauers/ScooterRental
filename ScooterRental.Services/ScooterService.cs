@@ -1,6 +1,7 @@
 ﻿using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
 using ScooterRental.Data;
+using System;
 
 namespace ScooterRental.Services
 {
@@ -9,14 +10,14 @@ namespace ScooterRental.Services
         public ScooterService(IScooterRentalDbContext context) : base(context)
         { }
 
-        public Scooter GetScooterById(long id)
-        {
-            return GetById(id);
-        }
-
         public ServiceResult CreateScooter(Scooter scooter)
         {
             return Create(scooter);
+        }
+
+        public Scooter GetScooterById(long id)
+        {
+            return GetById(id);
         }
 
         public ServiceResult DeleteScooter(Scooter scooter)
@@ -24,12 +25,31 @@ namespace ScooterRental.Services
             return Delete(scooter);
         }
 
-        public ServiceResult UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch)
+        public ServiceResult StartRental(long id)
         {
-            scooterToUpdate.PricePerMinute = scooterToMatch.PricePerMinute;
-            scooterToUpdate.IsRented = scooterToMatch.IsRented;
+            var scooter = GetById(id);
 
-            return Update(scooterToUpdate);
+            if(!scooter.IsRented)
+            {
+                scooter.IsRented = true;
+                return Update(scooter);
+            }
+
+            return new ServiceResult(false);
+        }
+
+        public ServiceResult EndRental(long id)
+        {
+            var scooter = GetById(id);
+
+            if (scooter == null || !scooter.IsRented)
+            {
+                return new ServiceResult(false);
+            }
+
+            scooter.IsRented = false;
+
+            return Update(scooter);
         }
     }
 }

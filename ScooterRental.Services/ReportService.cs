@@ -17,6 +17,11 @@ namespace ScooterRental.Services
             _calculator = new RentalIncomeCalculator();
         }
 
+        public ServiceResult CreateReport(Scooter scooter, DateTime? rentalStart = null)
+        {
+            return Create(new RentalReport(scooter.Id, scooter.PricePerMinute, rentalStart));
+        }
+
         public List<RentalReport> FilterReportsByYear(int year)
         {
             return year != 0
@@ -43,7 +48,9 @@ namespace ScooterRental.Services
 
         public RentalReport GetSingleReport(long id)
         {
-            var report = _context.RentalReports.FirstOrDefault(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
+            var report = Query<RentalReport>()
+                .FirstOrDefault(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
+
             report.RentalEnd = DateTime.Now;
 
             var income = _calculator.CalculatePerReport(report);

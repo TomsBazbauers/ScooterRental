@@ -10,14 +10,11 @@ namespace ScooterRental.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IScooterService _scooterService;
-        private readonly IRentalService _rentalService;
         private readonly IReportService _reportService;
 
-        public CustomerController(IScooterService scooterService,
-            IRentalService rentalService, IReportService reportService)
+        public CustomerController(IScooterService scooterService, IReportService reportService)
         {
             _scooterService = scooterService;
-            _rentalService = rentalService;
             _reportService = reportService;
         }
 
@@ -25,34 +22,39 @@ namespace ScooterRental.Controllers
         [HttpPut]
         public IActionResult StartRental(long id)
         {
-            var request = _scooterService.GetScooterById(id);
-
-            if (request == null || request.IsRented)
+            var scooter = _scooterService.GetScooterById(id);
+            
+            if(scooter == null)
             {
                 return BadRequest();
             }
 
-            _rentalService.StartRental(request.Id);
-            _reportService.Create(new RentalReport(request.Id, request.PricePerMinute, DateTime.Now));
+            var result = _scooterService.StartRental(id);
+            
+            if (result.Success)
+            {
+                _reportService.CreateReport(scooter);
+                
+                return Ok(id);
+            }
 
-            return Ok();
+            return BadRequest();
         }
 
         [Route("rent-scooter/end/{id}")]
         [HttpPut]
         public IActionResult EndRental(long id)
         {
-            var request = _scooterService.GetScooterById(id);
+            var result = _scooterService.EndRental(id);
 
-            if (request == null || !request.IsRented)
+            if (result.Success)
             {
-                return BadRequest();
+                var report = _reportService.GetSingleReport(id);
+
+                return Ok(report);
             }
 
-            var report = _reportService.GetSingleReport(request.Id);
-            _rentalService.EndRental(request.Id, report.RentalEnd);
-
-            return Ok(report);
+            return Problem();
         }
     }
 }
