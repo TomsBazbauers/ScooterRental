@@ -26,7 +26,7 @@ namespace ScooterRental.Controllers
             
             if(scooter == null)
             {
-                return BadRequest();
+                return NotFound(id);
             }
 
             var result = _scooterService.StartRental(id);
@@ -38,7 +38,7 @@ namespace ScooterRental.Controllers
                 return Ok(id);
             }
 
-            return BadRequest();
+            return BadRequest(id);
         }
 
         [Route("rent-scooter/end/{id}")]
@@ -54,7 +54,7 @@ namespace ScooterRental.Controllers
                 return Ok(report);
             }
 
-            return Problem();
+            return NotFound(id);
         }
     }
 }
