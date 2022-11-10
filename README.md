@@ -7,17 +7,16 @@ A simple API application for registering, renting scooters and calculating, gett
 
 ### Brief:
 
-- You can update list of available scooters at any time
+- You cannot delete a scooter if it is rented
 - You can rent scooters for any time period
 - You must calculate rental price when rental ends
-- You must calculate rental company income from all rentals and provide yearly report if requested
+- You must calculate rental company income from all rentals (including ongoing rentals if requested) and provide yearly report if requested
 - Max charge per day is set at 20 euros
 
 ---
 
 - Use TDD approach
 - Think about OOP design patterns and S.O.L.I.D. principles
-- In case of error, throw different type of exceptions for each situation
 
 ### We are giving some interfaces and classes:
 
