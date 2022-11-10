@@ -73,7 +73,7 @@ namespace ScooterRental.Controllers
             var scooter = _scooterService.GetScooterById(id);
             if (scooter == null)
             {
-                return BadRequest(id);
+                return NotFound(id);
             }
 
             var result = _scooterService.DeleteScooter(scooter);

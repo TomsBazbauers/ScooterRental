@@ -36,11 +36,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _reportServiceMock.Setup(m => m.CreateReport(testScooter, DateTime.Now)).Returns(new ServiceResult(true));
 
             // Act
-            var actionResult = _sut.StartRental(testId);
+            var actionResult = _sut.StartRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<OkObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testId);
+            actionResult.Value.Should().Be(testId);
         }
 
         [Fact]
@@ -52,11 +52,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _scooterServiceMock.Setup(m => m.GetScooterById(testId)).Returns((Scooter)null);
 
             // Act
-            var actionResult = _sut.StartRental(testId);
+            var actionResult = _sut.StartRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<NotFoundObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testId);
+            actionResult.Value.Should().Be(testId);
         }
 
         [Fact]
@@ -71,11 +71,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _scooterServiceMock.Setup(m => m.StartRental(testId)).Returns(new ServiceResult(false));
 
             // Act
-            var actionResult = _sut.StartRental(testId);
+            var actionResult = _sut.StartRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<BadRequestObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testId);
+            actionResult.Value.Should().Be(testId);
         }
 
         [Fact]
@@ -94,11 +94,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _reportServiceMock.Setup(m => m.GetSingleReport(testId)).Returns(testReport);
 
             // Act
-            var actionResult = _sut.EndRental(testId);
+            var actionResult = _sut.EndRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<OkObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testReport);
+            actionResult.Value.Should().Be(testReport);
         }
 
         [Fact]
@@ -110,11 +110,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _scooterServiceMock.Setup(m => m.EndRental(testId)).Returns(new ServiceResult(false));
 
             // Act
-            var actionResult = _sut.EndRental(testId);
+            var actionResult = _sut.EndRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<NotFoundObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testId);
+            actionResult.Value.Should().Be(testId);
         }
 
         [Fact]
@@ -128,11 +128,11 @@ namespace ScooterRental.Tests.CustomerControllerTests
             _scooterServiceMock.Setup(m => m.EndRental(testId)).Returns(new ServiceResult(false));
 
             // Act
-            var actionResult = _sut.EndRental(testId);
+            var actionResult = _sut.EndRental(testId) as ObjectResult;
 
             // Assert
             actionResult.Should().BeOfType<NotFoundObjectResult>();
-            (actionResult as ObjectResult).Value.Should().Be(testId);
+            actionResult.Value.Should().Be(testId);
         }
     }
 }

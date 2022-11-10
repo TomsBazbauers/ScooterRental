@@ -47,7 +47,7 @@ namespace ScooterRental.Tests
             var actual = _sut.CalculateIncome(testReports);
 
             // Assert
-            actual.Should().Be(12488.75M);
+            actual.Should().Be(12477.00M);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace ScooterRental.Tests
             var actual = _sut.CalculateIncome(_testReports);
 
             // Assert
-            actual.Should().Be(12499.75M);
+            actual.Should().Be(12484.50M);
         }
     }
 }

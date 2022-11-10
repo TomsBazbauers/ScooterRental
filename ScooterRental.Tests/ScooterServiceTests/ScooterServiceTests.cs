@@ -24,13 +24,13 @@ namespace ScooterRental.Tests
             var testId = testScooter.Entity.Id;
 
             // Act
-            var actual = _sut.GetScooterById(testId);
+            var actionResult = _sut.GetScooterById(testId);
 
             // Assert
-            actual.Should().BeOfType<Scooter>();
-            actual.Id.Should().Be(testId);
-            actual.PricePerMinute.Should().Be(0.55m);
-            actual.IsRented.Should().BeFalse();
+            actionResult.Should().BeOfType<Scooter>();
+            actionResult.Id.Should().Be(testId);
+            actionResult.PricePerMinute.Should().Be(0.55m);
+            actionResult.IsRented.Should().BeFalse();
         }
 
         [Fact]
@@ -41,17 +41,17 @@ namespace ScooterRental.Tests
             var currentCountInDb = _dbContext.Scooters.Count();
 
             // Act
-            var actual = _sut.CreateScooter(testScooter);
+            var actionResult = _sut.CreateScooter(testScooter);
 
             // Assert
-            actual.Success.Should().BeTrue();
+            actionResult.Success.Should().BeTrue();
 
             // Assert
             _dbContext.Scooters
-                .First(scooter => scooter.Id == actual.Entity.Id).PricePerMinute
+                .First(scooter => scooter.Id == actionResult.Entity.Id).PricePerMinute
                 .Should().Be(testScooter.PricePerMinute);
             _dbContext.Scooters
-                .First(scooter => scooter.Id == actual.Entity.Id).IsRented.Should().BeFalse();
+                .First(scooter => scooter.Id == actionResult.Entity.Id).IsRented.Should().BeFalse();
             _dbContext.Scooters.Count().Should().Be(currentCountInDb + 1);
         }
 
@@ -63,10 +63,10 @@ namespace ScooterRental.Tests
             var scooterToDelete = _dbContext.Scooters.First();
 
             // Act
-            var actual = _sut.DeleteScooter(scooterToDelete);
+            var actionResult = _sut.DeleteScooter(scooterToDelete);
 
             // Assert
-            actual.Success.Should().BeTrue();
+            actionResult.Success.Should().BeTrue();
 
             // Assert
             _dbContext.Scooters.Any(scooter => scooter.Id == scooterToDelete.Id).Should().BeFalse();
@@ -81,10 +81,10 @@ namespace ScooterRental.Tests
             var testId = testScooter.Entity.Id;
 
             // Act
-            var actual = _sut.StartRental(testId);
+            var actionResult = _sut.StartRental(testId);
 
             // Assert
-            actual.Success.Should().BeTrue();
+            actionResult.Success.Should().BeTrue();
 
             // Assert
             _dbContext.Scooters
@@ -100,10 +100,10 @@ namespace ScooterRental.Tests
             testScooter.IsRented = true;
 
             // Act
-            var actual = _sut.StartRental(testId);
+            var actionResult = _sut.StartRental(testId);
 
             // Assert
-            actual.Success.Should().BeFalse();
+            actionResult.Success.Should().BeFalse();
 
             // Assert
             testScooter.IsRented.Should().BeTrue();
@@ -117,10 +117,10 @@ namespace ScooterRental.Tests
             var testId = testScooter.Entity.Id;
 
             // Act
-            var actual = _sut.EndRental(testId);
+            var actionResult = _sut.EndRental(testId);
 
             // Assert
-            actual.Success.Should().BeTrue();
+            actionResult.Success.Should().BeTrue();
 
             // Assert
             _dbContext.Scooters
@@ -136,10 +136,10 @@ namespace ScooterRental.Tests
             testScooter.IsRented = false;
 
             // Act
-            var actual = _sut.EndRental(testId);
+            var actionResult = _sut.EndRental(testId);
 
             // Assert
-            actual.Success.Should().BeFalse();
+            actionResult.Success.Should().BeFalse();
 
             // Assert
             testScooter.IsRented.Should().BeFalse();
