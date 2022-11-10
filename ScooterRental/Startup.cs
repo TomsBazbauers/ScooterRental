@@ -50,9 +50,9 @@ namespace ScooterRental
             services.AddScoped<IScooterService, ScooterService>();
             services.AddScoped<IReportService, ReportService>();
 
-            services.AddScoped<IRentalIncomeCalculator, RentalIncomeCalculator>();
             services.AddScoped<IScooterValidator, ScooterPriceValidator>();
             services.AddScoped<IScooterValidator, ScooterStatusValidator>();
+            services.AddScoped<IRentalIncomeCalculator, RentalIncomeCalculator>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
