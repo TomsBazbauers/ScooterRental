@@ -1,11 +1,6 @@
 ﻿using FluentAssertions;
 using ScooterRental.Core.Models;
 using ScooterRental.Core.Validations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ScooterRental.Tests.ScooterValidationsTests
@@ -13,47 +8,36 @@ namespace ScooterRental.Tests.ScooterValidationsTests
     public class ScooterStatusValidatorTests
     {
         private IScooterValidator _sut;
-        private List<Scooter> _testScooters;
 
         public ScooterStatusValidatorTests()
         {
             _sut = new ScooterStatusValidator();
-            _testScooters = new List<Scooter>()
-            {
-                new Scooter(0, false),
-                new Scooter(1, false),
-                new Scooter(),
-                new Scooter(0, true),
-                new Scooter(1, true),
-            };
         }
 
         [Theory]
-        [InlineData(0, 1, 2)]
-        public void IsValid_InputValid_ReturnsTrue(int caseA, int caseB, int caseC)
+        [InlineData(-10, false, true)]
+        [InlineData(10.5, false, true)]
+        [InlineData(99.55, false, true)]
+        public void IsValid_InputValid_ReturnsTrue(decimal testPrice, bool testStatus, bool expected)
         {
-            // Act
-            var actualA = _sut.IsValid(_testScooters[caseA]);
-            var actualB = _sut.IsValid(_testScooters[caseB]);
-            var actualC = _sut.IsValid(_testScooters[caseC]);
+            // Arrange
+            var testScooter = new Scooter(testPrice, testStatus);
 
             // Assert
-            actualA.Should().BeTrue();
-            actualB.Should().BeTrue();
-            actualC.Should().BeTrue();
+            _sut.IsValid(testScooter).Should().Be(expected);
         }
 
         [Theory]
-        [InlineData(3, 4)]
-        public void IsValid_InputInvalid_ReturnsFalse(int caseA, int caseB)
+        [InlineData(-10, true, false)]
+        [InlineData(10.5, true, false)]
+        [InlineData(99.55, true, false)]
+        public void IsValid_InputInvalid_ReturnsFalse(decimal testPrice, bool testStatus, bool expected)
         {
-            // Act
-            var actualA = _sut.IsValid(_testScooters[caseA]);
-            var actualB = _sut.IsValid(_testScooters[caseB]);
+            // Arrange
+            var testScooter = new Scooter(testPrice, testStatus);
 
             // Assert
-            actualA.Should().BeFalse();
-            actualB.Should().BeFalse();
+            _sut.IsValid(testScooter).Should().Be(expected);
         }
     }
 }
