@@ -31,7 +31,7 @@ namespace ScooterRental.Services
             return GetAll<T>();
         }
 
-        public T GetById(int id)
+        public T GetById(long id)
         {
             return GetById<T>(id);
         }

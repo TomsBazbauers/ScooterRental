@@ -21,9 +21,9 @@ namespace ScooterRental.Data.Migrations
 
             modelBuilder.Entity("ScooterRental.Core.Models.RentalReport", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("PricePerMinute")
@@ -38,8 +38,8 @@ namespace ScooterRental.Data.Migrations
                     b.Property<DateTime>("RentalStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ScooterId")
-                        .HasColumnType("int");
+                    b.Property<long>("ScooterId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -48,9 +48,9 @@ namespace ScooterRental.Data.Migrations
 
             modelBuilder.Entity("ScooterRental.Core.Models.Scooter", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsRented")

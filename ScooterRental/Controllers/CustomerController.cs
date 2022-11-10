@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScooterRental.Core.Models;
 using ScooterRental.Core.Services;
-using ScooterRental.Core.Validations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ScooterRental.Controllers
 {
@@ -13,26 +10,24 @@ namespace ScooterRental.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IScooterService _scooterService;
-        private readonly IEnumerable<IScooterValidator> _scooterValidators;
         private readonly IRentalService _rentalService;
         private readonly IReportService _reportService;
 
         public CustomerController(IScooterService scooterService,
-            IEnumerable<IScooterValidator> scooterValidators, IRentalService rentalService, IReportService reportService)
+            IRentalService rentalService, IReportService reportService)
         {
             _scooterService = scooterService;
-            _scooterValidators = scooterValidators;
             _rentalService = rentalService;
             _reportService = reportService;
         }
 
         [Route("rent-scooter/start/{id}")]
         [HttpPut]
-        public IActionResult StartRental(int id)
+        public IActionResult StartRental(long id)
         {
             var request = _scooterService.GetScooterById(id);
 
-            if (request == null)
+            if (request == null || request.IsRented)
             {
                 return BadRequest();
             }
@@ -45,7 +40,7 @@ namespace ScooterRental.Controllers
 
         [Route("rent-scooter/end/{id}")]
         [HttpPut]
-        public IActionResult EndRental(int id)
+        public IActionResult EndRental(long id)
         {
             var request = _scooterService.GetScooterById(id);
 

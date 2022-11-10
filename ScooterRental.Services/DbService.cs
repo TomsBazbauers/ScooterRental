@@ -45,9 +45,9 @@ namespace ScooterRental.Services
             return _context.Set<T>().ToList();
         }
 
-        public T GetById<T>(int id) where T : Entity
+        public T GetById<T>(long id) where T : Entity
         {
-            return _context.Set<T>().First(e => e.Id == id);
+            return _context.Set<T>().FirstOrDefault(e => e.Id == id);
         }
 
         public IQueryable<T> Query<T>() where T : Entity

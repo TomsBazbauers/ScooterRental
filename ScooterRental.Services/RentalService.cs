@@ -12,7 +12,7 @@ namespace ScooterRental.Services
             _scooterService = scooterService;
         }
 
-        public void StartRental(int id)
+        public void StartRental(long id)
         {
             var scooterToRent = _scooterService.GetScooterById(id);
             scooterToRent.IsRented = true;
@@ -20,7 +20,7 @@ namespace ScooterRental.Services
             _scooterService.Update(scooterToRent);
         }
 
-        public void EndRental(int id, DateTime rentalEnd)
+        public void EndRental(long id, DateTime rentalEnd)
         {
             var scooterToRent = _scooterService.GetScooterById(id);
             scooterToRent.IsRented = false;

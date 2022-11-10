@@ -1,4 +1,5 @@
-﻿using ScooterRental.Core.Models;
+﻿using ScooterRental.Core.Calculators;
+using ScooterRental.Core.Models;
 using System.Collections.Generic;
 
 namespace ScooterRental.Core.Services
@@ -7,10 +8,10 @@ namespace ScooterRental.Core.Services
     {
         List<RentalReport> FilterReportsByYear(int year);
 
-        public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals);
+        List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals);
 
-        public IncomeReport GetIncomeForPeriod(int year = 0, bool includeRunningRentals = false);
+        IncomeReport GetIncomeForPeriod(int year = 0, bool includeRunningRentals = false);
 
-        public RentalReport GetSingleReport(int id);
+        RentalReport GetSingleReport(long id);
     }
 }

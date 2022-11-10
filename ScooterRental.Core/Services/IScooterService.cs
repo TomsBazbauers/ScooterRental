@@ -4,7 +4,7 @@ namespace ScooterRental.Core.Services
 {
     public interface IScooterService : IEntityService<Scooter>
     {
-        Scooter GetScooterById(int id);
+        Scooter GetScooterById(long id);
 
         ServiceResult UpdateScooter(Scooter scooterToUpdate, Scooter scooterToMatch);
 

@@ -14,7 +14,7 @@ namespace ScooterRental.Core.Services
 
         List<T> GetAll<T>() where T : Entity;
 
-        T GetById<T>(int id) where T : Entity;
+        T GetById<T>(long id) where T : Entity;
 
         IQueryable<T> Query<T>() where T : Entity;
     }

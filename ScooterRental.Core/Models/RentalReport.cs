@@ -4,7 +4,7 @@ namespace ScooterRental.Core.Models
 {
     public class RentalReport : Entity
     {
-        public RentalReport(int id, decimal rate, DateTime rentalStart)
+        public RentalReport(long id, decimal rate, DateTime rentalStart)
         {
             ScooterId = id;
             PricePerMinute = rate;
@@ -14,7 +14,7 @@ namespace ScooterRental.Core.Models
 
         public RentalReport() { }
 
-        public int ScooterId { get; set; }
+        public long ScooterId { get; set; }
 
         public decimal PricePerMinute { get; set; }
 

@@ -9,20 +9,9 @@ namespace ScooterRental.Services
         public ScooterService(IScooterRentalDbContext context) : base(context)
         { }
 
-        public Scooter GetScooterById(int id)
+        public Scooter GetScooterById(long id)
         {
-            Scooter scooter;
-
-            try
-            {
-                scooter = GetById(id);
-            }
-            catch
-            {
-                scooter = null;
-            }
-
-            return scooter;
+            return GetById(id);
         }
 
         public ServiceResult CreateScooter(Scooter scooter)

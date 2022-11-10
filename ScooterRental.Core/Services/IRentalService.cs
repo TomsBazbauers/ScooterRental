@@ -4,8 +4,8 @@ namespace ScooterRental.Core.Services
 {
     public interface IRentalService
     {
-        void StartRental(int id);
+        void StartRental(long id);
 
-        void EndRental(int id, DateTime rentalEnd);
+        void EndRental(long id, DateTime rentalEnd);
     }
 }

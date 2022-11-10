@@ -20,15 +20,15 @@ namespace ScooterRental.Services
         public List<RentalReport> FilterReportsByYear(int year)
         {
             return year != 0
-                ? _context.RentalReports.Where(report => report.RentalStart.Year == year).ToList()
-                : _context.RentalReports.ToList();
+                ? Query<RentalReport>().Where(report => report.RentalStart.Year == year).ToList()
+                : Query<RentalReport>().ToList();
         }
 
         public List<RentalReport> FilterReportsByRentalStatus(List<RentalReport> reports, bool includeRunningRentals)
         {
             return includeRunningRentals
                 ? reports
-                : reports.Where(report => report.RentalEnd != DateTime.MinValue).ToList();
+                : Query<RentalReport>().Where(report => report.RentalEnd != DateTime.MinValue).ToList();
         }
 
         public IncomeReport GetIncomeForPeriod(int year = 0, bool includeRunningRentals = false)
@@ -41,9 +41,9 @@ namespace ScooterRental.Services
             return new IncomeReport(year, incomePerPeriod, filteredReports.Count);
         }
 
-        public RentalReport GetSingleReport(int id)
+        public RentalReport GetSingleReport(long id)
         {
-            var report = _context.RentalReports.First(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
+            var report = _context.RentalReports.FirstOrDefault(report => report.ScooterId == id && report.RentalEnd == DateTime.MinValue);
             report.RentalEnd = DateTime.Now;
 
             var income = _calculator.CalculatePerReport(report);

@@ -4,6 +4,6 @@ namespace ScooterRental.Core.Models
 {
     public abstract class Entity : IEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

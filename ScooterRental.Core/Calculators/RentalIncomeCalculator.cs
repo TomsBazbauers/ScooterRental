@@ -23,7 +23,7 @@ namespace ScooterRental.Core.Calculators
             return total;
         }
 
-        public decimal CalculatePerReport(RentalReport report)// extract date mocking to reportService?
+        public decimal CalculatePerReport(RentalReport report)
         {
             TimeSpan rentalPeriod = report.RentalEnd == DateTime.MinValue
                 ? DateTime.Now.Subtract(report.RentalStart)

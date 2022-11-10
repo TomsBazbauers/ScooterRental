@@ -74,7 +74,7 @@ namespace ScooterRental.Controllers
 
         [Route("scooter/{id}")]
         [HttpGet]
-        public IActionResult GetScooter(int id)
+        public IActionResult GetScooter(long id)
         {
             var request = _scooterService.GetScooterById(id);
 
@@ -90,7 +90,7 @@ namespace ScooterRental.Controllers
 
         [Route("delete-scooter/{id}")]
         [HttpDelete]
-        public IActionResult DeleteScooter(int id)
+        public IActionResult DeleteScooter(long id)
         {
             var scooter = _scooterService.GetScooterById(id);
             if (scooter == null)
@@ -111,7 +111,7 @@ namespace ScooterRental.Controllers
         [HttpGet]
         public IActionResult GetIncomeReport(int year, bool includeRunningRentals)
         {
-            if(year > DateTime.Now.Year)
+            if (year > DateTime.Now.Year)
             {
                 return BadRequest(year);
             }
