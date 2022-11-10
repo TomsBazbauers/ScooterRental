@@ -17,7 +17,6 @@ A simple API application for registering, renting scooters and calculating, gett
 
 - Use TDD approach
 - Think about OOP design patterns and S.O.L.I.D. principles
-- In case of error, throw different type of exceptions for each situation
 
 ### We are giving some interfaces and classes:
 
