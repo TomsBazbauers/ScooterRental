@@ -1,7 +1,7 @@
 # ScooterRental
 
 ### Description:
-A simple API application for registering, renting scooters and calculating, getting rental income reports.
+CRUD API application for registering, renting scooters and calculating, getting rental income reports.
 
 ---
 
