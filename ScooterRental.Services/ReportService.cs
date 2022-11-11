@@ -13,9 +13,7 @@ namespace ScooterRental.Services
         private readonly IRentalIncomeCalculator _calculator;
 
         public ReportService(IScooterRentalDbContext context) : base(context)
-        {
-            _calculator = new RentalIncomeCalculator();
-        }
+        { }
 
         public ServiceResult CreateReport(Scooter scooter, DateTime? rentalStart = null)
         {
