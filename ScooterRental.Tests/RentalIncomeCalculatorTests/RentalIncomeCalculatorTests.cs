@@ -29,12 +29,13 @@ namespace ScooterRental.Tests
         {
             // Arrange
             var testReports = new List<RentalReport>() { _testReports[0], _testReports[1] };
+            var expected = TestCalculator.SumTotal(testReports);
 
             // Act
             var actual = _sut.CalculateIncome(testReports);
 
             // Assert
-            actual.Should().Be(7.5m);
+            actual.Should().Be(expected);
         }
 
         [Fact]
@@ -42,22 +43,26 @@ namespace ScooterRental.Tests
         {
             // Arrange
             var testReports = new List<RentalReport>() { _testReports[2], _testReports[3] };
+            var expected = TestCalculator.SumTotal(testReports);
 
             // Act
             var actual = _sut.CalculateIncome(testReports);
 
             // Assert
-            actual.Should().Be(12477.00M);
+            actual.Should().Be(expected);
         }
 
         [Fact]
         public void CalculateIncome_InputMixedStatusRentals_ReturnsExpectedValue()
         {
+            // Arrange
+            var expected = TestCalculator.SumTotal(_testReports);
+
             // Act
             var actual = _sut.CalculateIncome(_testReports);
 
             // Assert
-            actual.Should().Be(12484.50M);
+            actual.Should().Be(expected);
         }
     }
 }
