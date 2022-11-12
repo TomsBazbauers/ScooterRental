@@ -2,6 +2,8 @@
 
 ### Description:
 CRUD API application for registering, renting scooters and calculating, getting rental income reports.
+- Uses SqlServer database
+- Unit tested with XUnit
 
 ---
 
