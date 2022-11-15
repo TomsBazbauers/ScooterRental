@@ -3,7 +3,9 @@
 ### Description:
 CRUD API application for registering, renting scooters and calculating, getting rental income reports.
 - Uses SqlServer database
-- Unit tested with XUnit
+- Unit tested via XUnit, Moq, FluentAssertions
+
+An IDE with C#/.NET support is necessary to run this project.
 
 ---
 
